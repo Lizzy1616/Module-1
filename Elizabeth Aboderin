@@ -1,0 +1,51 @@
+# This is a sample Python script.Pycharm
+
+# Let's create a function to determine employee level based on salary and gender
+def determine_employee_level(salary, gender):
+    if 10000 < salary < 20000:
+        return "A1"
+    elif 7500 < salary < 30000 and gender == "female":
+        return "A5-F"
+    else:
+        return "Standard"
+
+# Let's create a list of workers dynamically with random salaries and genders
+workers = [{"name": f"Worker {i}", "salary": random.randint(5000, 35000), "gender": random.choice(["male", "female"])} for i in range(1, 401)]
+
+# Let's generate payment slips of each worker
+for worker in workers:
+    try:
+        employee_level = determine_employee_level(worker["salary"], worker["gender"])
+        print(f"Name: {worker['name']}, Salary: ${worker['salary']}, Employee Level: {employee_level}")
+    except Exception as e:
+        print(f"Error processing {worker['name']}: {str(e)}")
+#R Studio
+# Define a Worker class
+Worker <- function(name, salary, gender) {
+  worker <- list(name = name, salary = salary, gender = gender)
+  return(worker)
+}
+
+# Create a list of workers
+workers <- vector("list", 400)
+for (i in 1:400) {
+  workers[[i]] <- Worker(paste("Worker", i, sep=""), 5000 + i * 100, ifelse(i %% 2 == 0, "Male", "Female"))
+}
+
+# Generate payment slips and apply conditional statements
+for (worker in workers) {
+  tryCatch({
+    if (worker$salary > 10000 & worker$salary < 20000) {
+      worker$level <- "A1"
+    } else if (worker$salary > 7500 & worker$salary < 30000 & worker$gender == "Female") {
+      worker$level <- "A5-F"
+    } else {
+      worker$level <- "Standard"
+    }
+    
+    cat("Name:", worker$name, ", Salary: $", worker$salary, ", Level:", worker$level, "\n")
+  }, error = function(e) {
+    cat("Error processing", worker$name, ":", e$message, "\n")
+  })
+}
+
